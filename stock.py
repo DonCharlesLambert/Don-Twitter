@@ -56,5 +56,5 @@ class Stock():
         return y_pred
 
 def random_stock():
-    name = list(stock_data.keys())[random.randint(0, len(stock_data.keys())-1)]
+    name = (list(stock_data.keys())[random.randint(0, len(stock_data.keys())-1)])
     return Stock(name)

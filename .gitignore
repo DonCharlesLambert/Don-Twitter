@@ -1,5 +1,6 @@
 keys.py
 data.py
 __pycache__/*
+.vscode/*
 Twitter.pem
 Twitter.ppk

@@ -21,7 +21,7 @@ def tweet_up_message():
     return tweet('\U0001F4BB Don is up')
 
 def tweet_morning():
-    return tweet(say_morning)
+    return tweet(say_morning())
 
 def tweet_verse():
     return tweet(say_verse())
@@ -32,13 +32,15 @@ def tweet_investing():
 def tweet_trading():
     return tweet(discuss_trading())
 
+def tweet_quote():
+    return tweet(say_quote())
+
 schedule.every().day.at("08:30").do(tweet_morning)
-schedule.every().day.at("11:30").do(tweet_verse)
-schedule.every().day.at("13:00").do(tweet_investing)
-schedule.every().day.at("15:00").do(tweet_trading)
-schedule
+schedule.every(2).hours.do(tweet_verse)
+# schedule.every().day.at("13:00").do(tweet_investing)
+schedule.every().hour.do(tweet_trading)
+schedule.every().day.at("18:00").do(tweet_quote)
 
-
-
+tweet('John 3:16')
 while True:
     schedule.run_pending()

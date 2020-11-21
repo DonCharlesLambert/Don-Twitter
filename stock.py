@@ -12,13 +12,14 @@ class Stock():
         self.symbol = stock_data[name][0]
         self.emoji = stock_data[name][1]
         self.times = self.get_times(15)
+        self.yesterday =  self.get_old_price()
 
     def get_times(self, interval):
         response = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={0}&interval='.format(self.symbol) + str(interval) + 'min&outputsize=full&apikey={0}'.format(keys.ALPHAVANTAGE)).json()
         times = response['Time Series (' + str(interval) + 'min)']
         return times
 
-    def get_yesterdays_price(self):
+    def get_old_price(self):
         response = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={0}&apikey={1}'.format(self.symbol, keys.ALPHAVANTAGE)).json()
         times = response['Time Series (Daily)']
 
@@ -32,6 +33,9 @@ class Stock():
             yesterstring = datetime.datetime.strftime(yesterday, '%Y-%m-%d')
         yesterdays_prices = times[yesterstring]
         return yesterdays_prices['4. close']
+
+    def get_yesterdays_price(self):
+        return self.yesterday
 
     def get_recent_price(self):
         most_recent_time = list(self.times.keys())[0]
